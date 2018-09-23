@@ -1,0 +1,22 @@
+{
+  "name": "evac_server",
+  "version": "1.0.0",
+  "description": "Backend Server for evac app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "start-dev": "nodemon --exec npm start"
+  },
+  "dependencies": {
+    "@cloudant/cloudant": "^2.4.0",
+    "express": "*",
+    "multer": "*",
+    "nodemon": "*",
+    "request": "*",
+    "watson-developer-cloud": "^3.10.0",
+    "winston": "*"
+  },
+  "author": "Tirthankar Kundu",
+  "license": "ISC"
+}
