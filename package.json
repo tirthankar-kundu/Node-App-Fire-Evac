@@ -14,8 +14,7 @@
     "multer": "*",
     "nodemon": "*",
     "request": "*",
-    "watson-developer-cloud": "^3.10.0",
-    "winston": "*"
+    "watson-developer-cloud": "^3.10.0"
   },
   "author": "Tirthankar Kundu",
   "license": "ISC"

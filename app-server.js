@@ -5,26 +5,6 @@ const path = require("path");
 const request = require("request");
 const VisualRecognitionV3 = require("watson-developer-cloud/visual-recognition/v3");
 const fs = require("fs");
-const winston = require("winston");
-
-const logger = new winston.Logger({
-  transports: [
-    new winston.transports.Console({ json: false, timestamp: true }),
-    new winston.transports.File({
-      filename: __dirname + "/debug.log",
-      json: false
-    })
-  ],
-  exceptionHandlers: [
-    new winston.transports.Console({ json: false, timestamp: true }),
-    new winston.transports.File({
-      filename: __dirname + "/exceptions.log",
-      json: false
-    })
-  ],
-  exitOnError: false
-});
-
 const visualRecognition = new VisualRecognitionV3({
   url: "https://gateway.watsonplatform.net/visual-recognition/api",
   version: "2018-03-19",
@@ -51,6 +31,7 @@ app.get("/download", (req, res) => {
 });
 
 app.get("/classify", (req, res) => {
+  //logger.log("info", "A request was received");
   res.sendfile("index.html");
 });
 
@@ -108,13 +89,6 @@ app.post(
 );
 
 app.get("/location", (req, res) => {
-  console.log("headers", req.headers);
-  var ip =
-    (req.headers["x-forwarded-for"] || "").split(",").pop() ||
-    req.connection.remoteAddress ||
-    req.socket.remoteAddress ||
-    req.connection.socket.remoteAddress;
-  logger.info("log to file");
   request("http://localhost:8005/api/v1/location/ibm_v3/tk1", function(
     error,
     response,
@@ -128,11 +102,6 @@ app.get("/location", (req, res) => {
   });
   //res.json({ location: "entry", probability: 0.56 });
 });
-
-function cloudantDbSync() {
-  var uri =
-    "https://d550691e-55de-417f-934a-6c21249528d7-bluemix:251acffc45424c92fade4b199ed519e303873dc08184afdc5cded1ebc76bf6ad@d550691e-55de-417f-934a-6c21249528d7-bluemix.cloudant.com/paths";
-}
 
 app.get("/locations", (req, res) => {
   request("http://localhost:8005/api/v1/locations/ibm_v3", function(
